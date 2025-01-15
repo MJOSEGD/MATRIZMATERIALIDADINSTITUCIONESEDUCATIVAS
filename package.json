@@ -1,8 +1,6 @@
-
-// Array de temas ESG con ponderaciones iniciales
 const esgTopics = [
   { name: "Biodiversidad", category: "Environmental", esrs: "E4", ods: "15", kpi: "Área protegida (hectáreas)", taxonomy: "esrs_BiodiversityImpact" },
-  { name: "Gestión del Agua", category: "Environmental", esrs: "E2", ods: "6", kpi: "Consumo de agua (m³)", taxonomy: "esrs_WaterResourceManagement",fixedWeight: 50 },
+  { name: "Gestión del Agua", category: "Environmental", esrs: "E2", ods: "6", kpi: "Consumo de agua (m³)", taxonomy: "esrs_WaterResourceManagement", fixedWeight: 50 },
   { name: "Vertidos", category: "Environmental", esrs: "E3", ods: "14", kpi: "Reducción de vertidos (%)", taxonomy: "esrs_WasteDischarge" },
   { name: "Energía", category: "Environmental", esrs: "E1", ods: "7", kpi: "Consumo energético (MWh)", taxonomy: "esrs_EnergyConsumption" },
   { name: "Emisiones", category: "Environmental", esrs: "E5", ods: "13", kpi: "Reducción de emisiones CO₂ (%)", taxonomy: "esrs_EmissionsReduction", fixedWeight: 50 },
@@ -10,33 +8,37 @@ const esgTopics = [
   { name: "Construcción Ecológica y Gestión del Espacio", category: "Environmental", esrs: "E6", ods: "11", kpi: "Proyectos certificados LEED/BREEAM", taxonomy: "esrs_EcologicalConstruction" },
   { name: "Economía Circular", category: "Environmental", esrs: "E8", ods: "12", kpi: "Porcentaje de materiales reciclados", taxonomy: "esrs_CircularEconomy", fixedWeight: 50 },
   { name: "Consumo Responsable", category: "Environmental", esrs: "E11", ods: "12", kpi: "Uso de productos sostenibles (%)", taxonomy: "esrs_ResponsibleConsumption" },
-  { name: "Gestión de Residuos", category: "Environmental", esrs: "E9", ods: "12", kpi: "Reducción de residuos generados (%)", taxonomy: "esrs_WasteManagement", fixedWeight: 60 }, 
-
-  // Social Topics
+  { name: "Gestión de Residuos", category: "Environmental", esrs: "E9", ods: "12", kpi: "Reducción de residuos generados (%)", taxonomy: "esrs_WasteManagement", fixedWeight: 60 },
   { name: "Derechos Humanos", category: "Social", esrs: "S1", ods: "8, 10", kpi: "Incidentes relacionados con DDHH", taxonomy: "esrs_HumanRights" },
   { name: "Innovación y Sostenibilidad en Desarrollo de Negocios", category: "Social", esrs: "S2", ods: "9", kpi: "Nuevas iniciativas sostenibles", taxonomy: "esrs_BusinessInnovation" },
-  { name: "Índice de Salud y Bienestar Corporativo", category: "Social", esrs: "S3", ods: "3", kpi: "Índice de bienestar laboral", taxonomy: "esrs_HealthWellbeing",fixedWeight: 50 },
+  { name: "Índice de Salud y Bienestar Corporativo", category: "Social", esrs: "S3", ods: "3", kpi: "Índice de bienestar laboral", taxonomy: "esrs_HealthWellbeing", fixedWeight: 50 },
   { name: "Compromiso Corporativo con la Comunidad Local", category: "Social", esrs: "S4", ods: "11", kpi: "Proyectos de impacto comunitario", taxonomy: "esrs_CommunityEngagement", fixedWeight: 50 },
   { name: "Inclusión y Diversidad", category: "Social", esrs: "S5", ods: "5, 10", kpi: "Porcentaje de inclusión de género", taxonomy: "esrs_InclusionDiversity" },
   { name: "Desarrollo Profesional y Entorno Laboral en Empresas", category: "Social", esrs: "S7", ods: "4, 8", kpi: "Horas de formación anual promedio", taxonomy: "esrs_ProfessionalDevelopment" },
   { name: "Inclusión Socioeconómica y Resiliencia Empresarial", category: "Social", esrs: "S8", ods: "1, 10", kpi: "Proyectos inclusivos implementados", taxonomy: "esrs_SocioEconomicInclusion" },
   { name: "Sostenibilidad Alimentaria y Nutricional", category: "Social", esrs: "S9", ods: "2", kpi: "Porcentaje de iniciativas de alimentación sostenible", taxonomy: "esrs_FoodSustainability" },
   { name: "Sostenibilidad Académica", category: "Social", esrs: "S7", ods: "4, 8", kpi: "Horas de formación anual promedio", taxonomy: "esrs_ProfessionalDevelopment", fixedWeight: 60 },
-
-  // Governance Topics
   { name: "Gobernanza Institucional", category: "Governance", esrs: "G1", ods: "16", kpi: "Nivel de cumplimiento ético", taxonomy: "esrs_CorporateGovernance" },
   { name: "Privacidad, Seguridad y Protección de Datos", category: "Governance", esrs: "S6", ods: "9", kpi: "Número de incidentes de seguridad", taxonomy: "esrs_DataSecurity" },
-  { name: "Participación de Stakeholders", category: "Governance", esrs: "G2", ods: "17", kpi: "Número de consultas a stakeholders", taxonomy: "esrs_StakeholderEngagement",fixedWeight: 60 },
+  { name: "Participación de Stakeholders", category: "Governance", esrs: "G2", ods: "17", kpi: "Número de consultas a stakeholders", taxonomy: "esrs_StakeholderEngagement", fixedWeight: 60 },
   { name: "Transparencia e Integridad Corporativa", category: "Governance", esrs: "G3", ods: "16", kpi: "Índice de transparencia corporativa", taxonomy: "esrs_CorporateIntegrity" },
   { name: "Implementación de Estandares y Políticas ESG", category: "Governance", esrs: "G4", ods: "12", kpi: "Certificaciones ESG obtenidas", taxonomy: "esrs_ESGStandards" },
   { name: "Gestión de Riesgos y Crisis", category: "Governance", esrs: "G5", ods: "16", kpi: "Efectividad de planes de gestión de crisis", taxonomy: "esrs_RiskManagement" },
   { name: "Innovación Digital y Ciberseguridad", category: "Governance", esrs: "G6", ods: "9", kpi: "Nivel de ciberseguridad implementado", taxonomy: "esrs_CyberSecurity" },
   { name: "Sostenibilidad Financiera", category: "Governance", esrs: "G7", ods: "8", kpi: "Rentabilidad sostenible (%)", taxonomy: "esrs_FinancialSustainability" },
-  { name: "Matriz de Cumplimiento ESG", category: "Governance", esrs: "G8", ods: "12, 16", kpi: "Niveles de cumplimiento ESG", taxonomy: "esrs_ESGComplianceMatrix",fixedWeight: 65 }
+  { name: "Matriz de Cumplimiento ESG", category: "Governance", esrs: "G8", ods: "12, 16", kpi: "Niveles de cumplimiento ESG", taxonomy: "esrs_ESGComplianceMatrix", fixedWeight: 65 }
 ];
 
+const results = [];
+let selectedTopic = null;
+let chart = null;
 
-// Función para calcular las ponderaciones dinámicas
+document.addEventListener("DOMContentLoaded", () => {
+  calculateWeights(esgTopics);
+  populateTopics();
+  updateChart();
+});
+
 function calculateWeights(topics) {
   const fixedTotal = topics.reduce((sum, t) => sum + (t.fixedWeight || 0), 0);
   const dynamicTopics = topics.filter((t) => !t.fixedWeight);
@@ -45,11 +47,23 @@ function calculateWeights(topics) {
   dynamicTopics.forEach((t) => {
     t.dynamicWeight = dynamicTotal / dynamicTopics.length;
   });
-
-  return topics;
 }
 
-// Función para actualizar los valores con las ponderaciones ajustadas
+function populateTopics() {
+  const topicSelect = document.getElementById("topicSelect");
+  esgTopics.forEach((topic) => {
+    const option = document.createElement("option");
+    option.value = topic.name;
+    option.textContent = topic.name;
+    topicSelect.appendChild(option);
+  });
+}
+
+function selectTopic() {
+  const topicName = document.getElementById("topicSelect").value;
+  selectedTopic = esgTopics.find((topic) => topic.name === topicName) || null;
+}
+
 function updateValues() {
   if (!selectedTopic) {
     alert("Por favor, selecciona un tema ESG.");
@@ -77,30 +91,28 @@ function updateValues() {
   updateTable();
 }
 
-// Función para actualizar la tabla de resultados
 function updateTable() {
   const table = document.getElementById("resultsTable");
   table.innerHTML = results
     .map(
       (r) => `
-      <tr>
-        <td>${r.name}</td>
-        <td>${r.category}</td>
-        <td>${r.esrs}</td>
-        <td>${r.ods}</td>
-        <td>${r.kpi}</td>
-        <td>${r.taxonomy}</td>
-        <td>${r.fixedWeight || r.dynamicWeight.toFixed(2)}%</td>
-        <td>${r.puntuacion}%</td>
-        <td>${r.financiero.toFixed(2)}%</td>
-        <td>${r.stakeholders}%</td>
-      </tr>
-    `
+        <tr>
+          <td>${r.name}</td>
+          <td>${r.category}</td>
+          <td>${r.esrs}</td>
+          <td>${r.ods}</td>
+          <td>${r.kpi}</td>
+          <td>${r.taxonomy}</td>
+          <td>${r.fixedWeight || r.dynamicWeight.toFixed(2)}%</td>
+          <td>${r.puntuacion}%</td>
+          <td>${r.financiero.toFixed(2)}%</td>
+          <td>${r.stakeholders}%</td>
+        </tr>
+      `
     )
     .join("");
 }
 
-// Función para descargar el gráfico como imagen
 function downloadChart() {
   const link = document.createElement("a");
   link.href = chart.toBase64Image();
@@ -108,7 +120,6 @@ function downloadChart() {
   link.click();
 }
 
-// Función para exportar los datos a un archivo CSV
 function downloadData() {
   const csv =
     "data:text/csv;charset=utf-8,Tema,Categoría,ESRS,ODS,KPI,Taxonomía,Ponderación,Puntuación,Impacto Financiero,Stakeholders\n" +
@@ -125,40 +136,11 @@ function downloadData() {
   link.click();
 }
 
-// Inicialización de los temas con ponderaciones calculadas
-document.addEventListener("DOMContentLoaded", () => {
-  calculateWeights(esgTopics);
-  filterTopics();
-  updateChart();
-});
-
-let selectedTopic = null;
-let chart = null;
-const results = [];
-
-// Función para asignar colores según la categoría ESG
 function getCategoryColor(category) {
-  if (category === "Environmental") return "#66CDAA"; // Verde agua
-  if (category === "Social") return "#FFB347"; // Ocre claro
-  if (category === "Governance") return "#87CEEB"; // Azul cielo
-  return "#333333"; // Default
-}
-
-function filterTopics() {
-  const topicSelect = document.getElementById("topicSelect");
-  topicSelect.innerHTML = '<option value="">Seleccione un tema</option>';
-
-  esgTopics.forEach((topic) => {
-    const option = document.createElement("option");
-    option.value = topic.name;
-    option.textContent = topic.name;
-    topicSelect.appendChild(option);
-  });
-}
-
-function selectTopic() {
-  const topicName = document.getElementById("topicSelect").value;
-  selectedTopic = esgTopics.find((topic) => topic.name === topicName) || null;
+  if (category === "Environmental") return "#66CDAA";
+  if (category === "Social") return "#FFB347";
+  if (category === "Governance") return "#87CEEB";
+  return "#333333";
 }
 
 function updateChart() {
@@ -178,5 +160,18 @@ function updateChart() {
     },
     options: {
       responsive: true,
-      plugins:
-
+      scales: {
+        x: {
+          title: { display: true, text: "Impacto Financiero (%)" },
+          min: 0,
+          max: 100,
+        },
+        y: {
+          title: { display: true, text: "Puntuación (%)" },
+          min: 0,
+          max: 100,
+        },
+      },
+    },
+  });
+}
