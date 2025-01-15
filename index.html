@@ -1,554 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Matriz de Materialidad ESG</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        background-color: #f4f4f9;
-      }
-      .container {
-        max-width: 1200px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-      h1 {
-        text-align: center;
-        color: #0f766e;
-      }
-      .form-group {
-        margin-bottom: 15px;
-      }
-      label {
-        font-weight: bold;
-        display: block;
-        margin-bottom: 5px;
-      }
-      input[type="range"],
-      select {
-        width: 100%;
-      }
-      canvas {
-        margin: 20px 0;
-        border: 1px solid #ddd;
-        background-color: #fafafa;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-      }
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: center;
-      }
-      th {
-        background-color: #0f766e;
-        color: white;
-      }
-      button {
-        padding: 10px 15px;
-        background-color: #0f766e;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 10px;
-      }
-      button:hover {
-        background-color: #0d5d56;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Matriz de Materialidad ESG</h1>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matriz de Materialidad ESG</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="styles.css"> <!-- Si tienes un archivo CSS -->
+</head>
+<body>
+  <div class="container">
+    <h1>Matriz de Materialidad ESG</h1>
 
-      <!-- Selección de Tema -->
-      <div class="form-group">
-        <label for="topicSelect">Selecciona un Tema ESG</label>
-        <select id="topicSelect" onchange="selectTopic()">
-          <option value="">Seleccione un tema</option>
-        </select>
-      </div>
-
-      <!-- Sliders -->
-      <div class="form-group">
-        <label>Puntuación Screening (%)</label>
-        <input
-          type="range"
-          id="score"
-          min="0"
-          max="100"
-          value="0"
-          oninput="updateValues()"
-        />
-        <span id="scoreDisplay">0%</span>
-      </div>
-      <div class="form-group">
-        <label>Stakeholders (%)</label>
-        <input
-          type="range"
-          id="stakeholder"
-          min="0"
-          max="100"
-          value="0"
-          oninput="updateValues()"
-        />
-        <span id="stakeholderDisplay">0%</span>
-      </div>
-
-      <!-- Gráfico -->
-      <canvas id="matrixChart"></canvas>
-
-      <!-- Tabla -->
-      <table>
-        <thead>
-          <tr>
-            <th>Tema</th>
-            <th>Categoría</th>
-            <th>ESRS</th>
-            <th>ODS</th>
-            <th>KPI</th>
-            <th>Puntuación Screening (%)</th>
-            <th>Stakeholders (%)</th>
-            <th>Materialidad (%)</th>
-          </tr>
-        </thead>
-        <tbody id="resultsTable"></tbody>
-      </table>
-
-      <!-- Narrativa -->
-      <div class="narrative">
-        <h3>Explicación de la Matriz de Materialidad</h3>
-        <p>
-          La matriz de materialidad ESG (Ambiental, Social y Gobernanza) permite
-          visualizar y priorizar los temas más importantes para una
-          organización. Cada tema seleccionado se evalúa en función de:
-        </p>
-        <ul>
-          <li>
-            <strong>Puntuación (%):</strong> Representa la evaluación interna
-            del tema (impacto o relevancia).
-          </li>
-          <li>
-            <strong>Stakeholders (%):</strong> Refleja la importancia del tema
-            desde la perspectiva de los grupos de interés.
-          </li>
-        </ul>
-        <p>
-          La <strong>Materialidad (%)</strong> se calcula usando la siguiente
-          fórmula: <em>(Puntuación × 65%) + (Stakeholders × 35%)</em>.
-        </p>
-      </div>
-
-      <!-- Botón de Exportación -->
-      <button onclick="downloadData()">Exportar Datos</button>
+    <!-- Selección de Tema -->
+    <div class="form-group">
+      <label for="topicSelect">Selecciona un Tema ESG</label>
+      <select id="topicSelect" onchange="selectTopic()">
+        <option value="">Seleccione un tema</option>
+        <!-- Las opciones se llenan dinámicamente desde el JS -->
+      </select>
     </div>
-    <script>
-      const esgTopics = [
-        // Environmental Topics
-        {
-          name: "Biodiversidad",
-          category: "Environmental",
-          esrs: "E4",
-          ods: "15",
-          kpi: "Área protegida (hectáreas)",
-          taxonomy: "esrs_BiodiversityImpact",
-        },
-        {
-          name: "Gestión del Agua",
-          category: "Environmental",
-          esrs: "E2",
-          ods: "6",
-          kpi: "Consumo de agua (m³)",
-          taxonomy: "esrs_WaterResourceManagement",
-        },
-        {
-          name: "Vertidos",
-          category: "Environmental",
-          esrs: "E3",
-          ods: "14",
-          kpi: "Reducción de vertidos (%)",
-          taxonomy: "esrs_WasteDischarge",
-        },
-        {
-          name: "Energía",
-          category: "Environmental",
-          esrs: "E1",
-          ods: "7",
-          kpi: "Consumo energético (MWh)",
-          taxonomy: "esrs_EnergyConsumption",
-        },
-        {
-          name: "Emisiones",
-          category: "Environmental",
-          esrs: "E5",
-          ods: "13",
-          kpi: "Reducción de emisiones CO₂ (%)",
-          taxonomy: "esrs_EmissionsReduction",
-        },
-        {
-          name: "Urbanización Sostenible",
-          category: "Environmental",
-          esrs: "E10",
-          ods: "11",
-          kpi: "Proyectos de urbanización sostenible",
-          taxonomy: "esrs_SustainableUrbanization",
-        },
-        {
-          name: "Construcción Ecológica y Gestión del Espacio",
-          category: "Environmental",
-          esrs: "E6",
-          ods: "11",
-          kpi: "Proyectos certificados LEED/BREEAM",
-          taxonomy: "esrs_EcologicalConstruction",
-        },
-        {
-          name: "Economía Circular",
-          category: "Environmental",
-          esrs: "E8",
-          ods: "12",
-          kpi: "Porcentaje de materiales reciclados",
-          taxonomy: "esrs_CircularEconomy",
-        },
-        {
-          name: "Consumo Responsable",
-          category: "Environmental",
-          esrs: "E11",
-          ods: "12",
-          kpi: "Uso de productos sostenibles (%)",
-          taxonomy: "esrs_ResponsibleConsumption",
-        },
-        {
-          name: "Gestión de Residuos",
-          category: "Environmental",
-          esrs: "E9",
-          ods: "12",
-          kpi: "Reducción de residuos generados (%)",
-          taxonomy: "esrs_WasteManagement",
-        },
-         {
-          name: "Compra Sostenible",
-          category: "Environmental",
-          esrs: "E12",
-          ods: "12",
-          kpi: "Porcentaje de proveedores sostenibles",
-          taxonomy: "esrs_SustainableProcurement",
-        },
-        {
-          name: "Movilidad y Transportes",
-          category: "Environmental",
-          esrs: "E13",
-          ods: "11",
-          kpi: "Reducción de emisiones por transporte (%)",
-          taxonomy: "esrs_TransportEmissions",
-        },
-        // Social Topics
-        {
-          name: "Derechos Humanos",
-          category: "Social",
-          esrs: "S1",
-          ods: "8, 10",
-          kpi: "Incidentes relacionados con DDHH",
-          taxonomy: "esrs_HumanRights",
-        },
-        {
-          name: "Innovación y Sostenibilidad en Desarrollo de Negocios",
-          category: "Social",
-          esrs: "S2",
-          ods: "9",
-          kpi: "Nuevas iniciativas sostenibles",
-          taxonomy: "esrs_BusinessInnovation",
-        },
-        {
-          name: "Índice de Salud y Bienestar Corporativo",
-          category: "Social",
-          esrs: "S3",
-          ods: "3",
-          kpi: "Índice de bienestar laboral",
-          taxonomy: "esrs_HealthWellbeing",
-        },
-        {
-          name: "Compromiso Corporativo con la Comunidad Local",
-          category: "Social",
-          esrs: "S4",
-          ods: "11",
-          kpi: "Proyectos de impacto comunitario",
-          taxonomy: "esrs_CommunityEngagement",
-        },
-        {
-          name: "Inclusión y Diversidad",
-          category: "Social",
-          esrs: "S5",
-          ods: "5, 10",
-          kpi: "Porcentaje de inclusión de género",
-          taxonomy: "esrs_InclusionDiversity",
-        },
-        {
-          name: "Privacidad, Seguridad y Protección de Datos",
-          category: "Social",
-          esrs: "S6",
-          ods: "9",
-          kpi: "Número de incidentes de seguridad",
-          taxonomy: "esrs_DataSecurity",
-        },
-        {
-          name: "Desarrollo Profesional y Entorno Laboral en Empresas",
-          category: "Social",
-          esrs: "S7",
-          ods: "4, 8",
-          kpi: "Horas de formación anual promedio",
-          taxonomy: "esrs_ProfessionalDevelopment",
-        },
-        {
-          name: "Inclusión Socioeconómica y Resiliencia Empresarial",
-          category: "Social",
-          esrs: "S8",
-          ods: "1, 10",
-          kpi: "Proyectos inclusivos implementados",
-          taxonomy: "esrs_SocioEconomicInclusion",
-        },
-        {
-          name: "Sostenibilidad Alimentaria y Nutricional",
-          category: "Social",
-          esrs: "S9",
-          ods: "2",
-          kpi: "Porcentaje de iniciativas de alimentación sostenible",
-          taxonomy: "esrs_FoodSustainability",
-        },
-        {
-      name: "Sostenibilidad Académica",
-      category: "Social",
-      esrs: "S10",
-      ods: "4",
-      kpi: "Proyectos educativos sostenibles (n)",
-      taxonomy: "esrs_AcademicSustainability",
-       },
-        {
-          name: "Responsabilidad Social",
-          category: "Social",
-          esrs: "S11",
-          ods: "1, 10",
-          kpi: "Proyectos de impacto comunitario (n)",
-          taxonomy: "esrs_SocialResponsibility",
-        },
-        // Governance Topics
-        {
-          name: "Gobernanza Institucional",
-          category: "Governance",
-          esrs: "G1",
-          ods: "16",
-          kpi: "Nivel de cumplimiento ético",
-          taxonomy: "esrs_CorporateGovernance",
-        },
-        {
-          name: "Participación de Stakeholders",
-          category: "Governance",
-          esrs: "G2",
-          ods: "17",
-          kpi: "Número de consultas a stakeholders",
-          taxonomy: "esrs_StakeholderEngagement",
-        },
-        {
-          name: "Transparencia e Integridad Corporativa",
-          category: "Governance",
-          esrs: "G3",
-          ods: "16",
-          kpi: "Índice de transparencia corporativa",
-          taxonomy: "esrs_CorporateIntegrity",
-        },
-        {
-          name: "Implementación de Estándares ESG",
-          category: "Governance",
-          esrs: "G4",
-          ods: "12",
-          kpi: "Certificaciones ESG obtenidas",
-          taxonomy: "esrs_ESGStandards",
-        },
-        {
-          name: "Gestión de Riesgos y Crisis",
-          category: "Governance",
-          esrs: "G5",
-          ods: "16",
-          kpi: "Efectividad de planes de gestión de crisis",
-          taxonomy: "esrs_RiskManagement",
-        },
-        {
-          name: "Innovación Digital y Ciberseguridad",
-          category: "Governance",
-          esrs: "G6",
-          ods: "9",
-          kpi: "Nivel de ciberseguridad implementado",
-          taxonomy: "esrs_CyberSecurity",
-        },
-        {
-          name: "Sostenibilidad Financiera",
-          category: "Governance",
-          esrs: "G7",
-          ods: "8",
-          kpi: "Rentabilidad sostenible (%)",
-          taxonomy: "esrs_FinancialSustainability",
-        },
-        {
-          name: "Matriz de Cumplimiento ESG",
-          category: "Governance",
-          esrs: "G8",
-          ods: "12, 16",
-          kpi: "Niveles de cumplimiento ESG",
-          taxonomy: "esrs_ESGComplianceMatrix",
-        },
-      ];
 
-      let selectedTopic = null;
-      let chart = null;
-      const results = [];
+    <!-- Sliders para ajustar valores -->
+    <div class="form-group">
+      <label>Puntuación Screening (%)</label>
+      <input type="range" id="score" min="0" max="100" value="0" oninput="updateValues()">
+      <span id="scoreDisplay">0%</span>
+    </div>
+    <div class="form-group">
+      <label>Stakeholders (%)</label>
+      <input type="range" id="stakeholder" min="0" max="100" value="0" oninput="updateValues()">
+      <span id="stakeholderDisplay">0%</span>
+    </div>
 
-      function getCategoryColor(category) {
-        switch (category) {
-          case "Environmental":
-            return "#66cdaa";
-          case "Social":
-            return "#ffa07a";
-          case "Governance":
-            return "#87ceeb";
-          default:
-            return "#ccc";
-        }
-      }
+    <!-- Gráfico -->
+    <canvas id="matrixChart"></canvas>
 
-      function populateTopics() {
-        const topicSelect = document.getElementById("topicSelect");
-        esgTopics.forEach((topic) => {
-          const option = document.createElement("option");
-          option.value = topic.name;
-          option.textContent = topic.name;
-          topicSelect.appendChild(option);
-        });
-      }
+    <!-- Tabla de Resultados -->
+    <table>
+      <thead>
+        <tr>
+          <th>Tema</th>
+          <th>Categoría</th>
+          <th>ESRS</th>
+          <th>ODS</th>
+          <th>KPI</th>
+          <th>Taxonomía</th>
+          <th>Ponderación (%)</th>
+          <th>Puntuación (%)</th>
+          <th>Impacto Financiero (%)</th>
+          <th>Stakeholders (%)</th>
+        </tr>
+      </thead>
+      <tbody id="resultsTable">
+        <!-- Las filas se llenan dinámicamente desde el JS -->
+      </tbody>
+    </table>
 
-      function selectTopic() {
-        const topicName = document.getElementById("topicSelect").value;
-        selectedTopic = esgTopics.find((t) => t.name === topicName) || null;
-      }
-
-      function updateValues() {
-        if (!selectedTopic) return alert("Selecciona un tema ESG.");
-
-        const score = parseInt(document.getElementById("score").value) || 0;
-        const stakeholders =
-          parseInt(document.getElementById("stakeholder").value) || 0;
-
-        document.getElementById("scoreDisplay").innerText = `${score}%`;
-        document.getElementById(
-          "stakeholderDisplay"
-        ).innerText = `${stakeholders}%`;
-
-        const materialidad = (score * 0.65 + stakeholders * 0.35).toFixed(2);
-
-        const existing = results.find((r) => r.name === selectedTopic.name);
-        if (existing) {
-          existing.score = score;
-          existing.stakeholders = stakeholders;
-          existing.materialidad = materialidad;
-        } else {
-          results.push({
-            ...selectedTopic,
-            score,
-            stakeholders,
-            materialidad,
-          });
-        }
-
-        updateChart();
-        updateTable();
-      }
-
-      function updateChart() {
-        const ctx = document.getElementById("matrixChart").getContext("2d");
-        if (chart) chart.destroy();
-
-        chart = new Chart(ctx, {
-          type: "bubble",
-          data: {
-            datasets: results.map((r) => ({
-              label: r.name,
-              data: [
-                {
-                  x: r.score,
-                  y: r.materialidad,
-                  r: (r.stakeholders || r.score) / 2,
-                },
-              ],
-              backgroundColor: getCategoryColor(r.category),
-              borderColor: "#000",
-              borderWidth: 1,
-            })),
-          },
-          options: {
-            responsive: true,
-            scales: {
-              x: {
-                title: { display: true, text: "Puntuación Screening (%)" },
-                min: 0,
-                max: 100,
-              },
-              y: {
-                title: { display: true, text: "Materialidad (%)" },
-                min: 0,
-                max: 100,
-              },
-            },
-          },
-        });
-      }
-
-      function updateTable() {
-        const table = document.getElementById("resultsTable");
-        table.innerHTML = results
-          .map(
-            (r) => `
-            <tr>
-              <td>${r.name}</td>
-              <td>${r.category}</td>
-              <td>${r.esrs}</td>
-              <td>${r.ods}</td>
-              <td>${r.kpi}</td>
-              <td>${r.score}%</td>
-              <td>${r.stakeholders}%</td>
-              <td>${r.materialidad}%</td>
-            </tr>`
-          )
-          .join("");
-      }
-
-      function downloadData() {
-        const csv =
-          "data:text/csv;charset=utf-8,Tema,Categoría,ESRS,ODS,KPI,Puntuación Screening,Stakeholders,Materialidad\n" +
-          results
-            .map(
-              (r) =>
-                `${r.name},${r.category},${r.esrs},${r.ods},${r.kpi},${r.score},${r.stakeholders},${r.materialidad}`
-            )
-            .join("\n");
-
-        const link = document.createElement("a");
-        link.href = encodeURI(csv);
-        link.download = "datos_materialidad_esg.csv";
-        link.click();
-      }
-
-      document.addEventListener("DOMContentLoaded", populateTopics);
-    </script>
-  </body>
+    <!-- Botones para Exportación -->
+    <div class="export-buttons">
+      <button onclick="downloadChart()">Descargar Gráfico</button>
+      <button onclick="downloadData()">Exportar Datos CSV</button>
+    </div>
+  </div>
+  <script src="script.js"></script> <!-- Archivo JS depurado -->
+</body>
 </html>
+
 
