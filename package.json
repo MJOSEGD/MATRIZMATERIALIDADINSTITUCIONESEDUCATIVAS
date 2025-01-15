@@ -1,5 +1,6 @@
+
+// Array de temas ESG con ponderaciones iniciales
 const esgTopics = [
-  // Environmental Topics
   { name: "Biodiversidad", category: "Environmental", esrs: "E4", ods: "15", kpi: "Área protegida (hectáreas)", taxonomy: "esrs_BiodiversityImpact" },
   { name: "Gestión del Agua", category: "Environmental", esrs: "E2", ods: "6", kpi: "Consumo de agua (m³)", taxonomy: "esrs_WaterResourceManagement",fixedWeight: 50 },
   { name: "Vertidos", category: "Environmental", esrs: "E3", ods: "14", kpi: "Reducción de vertidos (%)", taxonomy: "esrs_WasteDischarge" },
@@ -33,6 +34,8 @@ const esgTopics = [
   { name: "Sostenibilidad Financiera", category: "Governance", esrs: "G7", ods: "8", kpi: "Rentabilidad sostenible (%)", taxonomy: "esrs_FinancialSustainability" },
   { name: "Matriz de Cumplimiento ESG", category: "Governance", esrs: "G8", ods: "12, 16", kpi: "Niveles de cumplimiento ESG", taxonomy: "esrs_ESGComplianceMatrix",fixedWeight: 65 }
 ];
+
+
 // Función para calcular las ponderaciones dinámicas
 function calculateWeights(topics) {
   const fixedTotal = topics.reduce((sum, t) => sum + (t.fixedWeight || 0), 0);
@@ -55,21 +58,19 @@ function updateValues() {
 
   const puntuacion = parseInt(document.getElementById("score").value) || 0;
   const stakeholders = parseInt(document.getElementById("stakeholder").value) || 0;
-  const riesgo = parseInt(document.getElementById("risk").value) || 0;
 
   document.getElementById("scoreDisplay").innerText = `${puntuacion}%`;
   document.getElementById("stakeholderDisplay").innerText = `${stakeholders}%`;
-  document.getElementById("riskDisplay").innerText = `${riesgo}%`;
 
   const weight = selectedTopic.fixedWeight || selectedTopic.dynamicWeight;
   const materiality = (puntuacion * 0.65 + stakeholders * 0.35) * (weight / 100);
-  const financiero = ((puntuacion + riesgo) / 2) * (weight / 100);
+  const financiero = ((puntuacion + stakeholders) / 2) * (weight / 100);
 
   const existing = results.find((r) => r.name === selectedTopic.name);
   if (existing) {
-    Object.assign(existing, { puntuacion, stakeholders, riesgo, materiality, financiero });
+    Object.assign(existing, { puntuacion, stakeholders, materiality, financiero });
   } else {
-    results.push({ ...selectedTopic, puntuacion, stakeholders, riesgo, materiality, financiero });
+    results.push({ ...selectedTopic, puntuacion, stakeholders, materiality, financiero });
   }
 
   updateChart();
@@ -144,51 +145,20 @@ function getCategoryColor(category) {
 }
 
 function filterTopics() {
-  const category = document.getElementById("categoryFilter").value;
   const topicSelect = document.getElementById("topicSelect");
   topicSelect.innerHTML = '<option value="">Seleccione un tema</option>';
 
-  esgTopics
-    .filter((topic) => category === "All" || topic.category === category)
-    .forEach((topic) => {
-      const option = document.createElement("option");
-      option.value = topic.name;
-      option.textContent = topic.name;
-      topicSelect.appendChild(option);
-    });
+  esgTopics.forEach((topic) => {
+    const option = document.createElement("option");
+    option.value = topic.name;
+    option.textContent = topic.name;
+    topicSelect.appendChild(option);
+  });
 }
 
 function selectTopic() {
   const topicName = document.getElementById("topicSelect").value;
   selectedTopic = esgTopics.find((topic) => topic.name === topicName) || null;
-}
-
-function updateValues() {
-  if (!selectedTopic) {
-    alert("Por favor, selecciona un tema ESG.");
-    return;
-  }
-
-  const puntuacion = parseInt(document.getElementById("score").value) || 0;
-  const stakeholders = parseInt(document.getElementById("stakeholder").value) || 0;
-  const riesgo = parseInt(document.getElementById("risk").value) || 0;
-
-  document.getElementById("scoreDisplay").innerText = `${puntuacion}%`;
-  document.getElementById("stakeholderDisplay").innerText = `${stakeholders}%`;
-  document.getElementById("riskDisplay").innerText = `${riesgo}%`;
-
-  const materiality = (puntuacion * 0.4 + stakeholders * 0.3 + riesgo * 0.3).toFixed(2);
-  const financiero = ((puntuacion + riesgo) / 2).toFixed(2);
-
-  const existing = results.find((r) => r.name === selectedTopic.name);
-  if (existing) {
-    Object.assign(existing, { puntuacion, stakeholders, riesgo, materiality, financiero });
-  } else {
-    results.push({ ...selectedTopic, puntuacion, stakeholders, riesgo, materiality, financiero });
-  }
-
-  updateChart();
-  updateTable();
 }
 
 function updateChart() {
@@ -208,250 +178,5 @@ function updateChart() {
     },
     options: {
       responsive: true,
-      plugins: {
-        annotation: {
-          annotations: {
-            quadrantLow: {
-              type: "box",
-              xMin: 0,
-              xMax: 50,
-              yMin: 0,
-              yMax: 50,
-              backgroundColor: "rgba(173, 216, 230, 0.3)", // Azul claro
-            },
-            quadrantMediumLow: {
-              type: "box",
-              xMin: 50,
-              xMax: 100,
-              yMin: 0,
-              yMax: 50,
-              backgroundColor: "rgba(135, 206, 250, 0.3)", // Azul medio
-            },
-            quadrantMediumHigh: {
-              type: "box",
-              xMin: 0,
-              xMax: 50,
-              yMin: 50,
-              yMax: 100,
-              backgroundColor: "rgba(100, 149, 237, 0.3)", // Azul fuerte
-            },
-            quadrantHigh: {
-              type: "box",
-              xMin: 50,
-              xMax: 100,
-              yMin: 50,
-              yMax: 100,
-              backgroundColor: "rgba(65, 105, 225, 0.3)", // Azul oscuro
-            },
-          },
-        },
-        title: {
-          display: true,
-          text: "Matriz de Doble Materialidad ESG",
-        },
-      },
-      scales: {
-        x: { title: { display: true, text: "Impacto Financiero (%)" }, min: 0, max: 100 },
-        y: { title: { display: true, text: "Impacto Socioambiental (%)" }, min: 0, max: 100 },
-      },
-    },
-  });
-}
-const ctx = document.getElementById("matrixChart").getContext("2d");
+      plugins:
 
-// Función para obtener el color del cuadrante
-function getQuadrantColor(x, y) {
-  if (x <= 50 && y <= 50) return "rgba(173, 216, 230, 0.5)"; // Baja materialidad
-  if (x > 50 && y <= 50) return "rgba(135, 206, 250, 0.5)"; // Media-Baja
-  if (x <= 50 && y > 50) return "rgba(100, 149, 237, 0.5)"; // Media-Alta
-  return "rgba(65, 105, 225, 0.5)"; // Alta
-}
-
-// Datos de ejemplo
-const data = [
-  { name: "Biodiversidad", x: 30, y: 40, r: 20, category: "Environmental" },
-  { name: "Gestión del Agua", x: 70, y: 50, r: 30, category: "Environmental" },
-  { name: "Derechos Humanos", x: 50, y: 60, r: 25, category: "Social" },
-  { name: "Gobernanza Institucional", x: 90, y: 80, r: 35, category: "Governance" },
-];
-
-// Función para obtener el color según la categoría ESG
-function getCategoryColor(category) {
-  switch (category) {
-    case "Environmental": return "#66cdaa";
-    case "Social": return "#ffb347";
-    case "Governance": return "#87ceeb";
-    default: return "#aaa";
-  }
-}
-
-// Crear el gráfico
-const chart = new Chart(ctx, {
-  type: "bubble",
-  data: {
-    datasets: data.map((d) => ({
-      label: d.name,
-      data: [{ x: d.x, y: d.y, r: d.r }],
-      backgroundColor: getCategoryColor(d.category),
-      borderColor: "#333",
-      borderWidth: 1,
-    })),
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: "Matriz de Doble Materialidad ESG",
-      },
-      annotation: {
-        annotations: {
-          quadrantLow: {
-            type: "box",
-            xMin: 0,
-            xMax: 50,
-            yMin: 0,
-            yMax: 50,
-            backgroundColor: "rgba(173, 216, 230, 0.3)",
-          },
-          quadrantMediumLow: {
-            type: "box",
-            xMin: 50,
-            xMax: 100,
-            yMin: 0,
-            yMax: 50,
-            backgroundColor: "rgba(135, 206, 250, 0.3)",
-          },
-          quadrantMediumHigh: {
-            type: "box",
-            xMin: 0,
-            xMax: 50,
-            yMin: 50,
-            yMax: 100,
-            backgroundColor: "rgba(100, 149, 237, 0.3)",
-          },
-          quadrantHigh: {
-            type: "box",
-            xMin: 50,
-            xMax: 100,
-            yMin: 50,
-            yMax: 100,
-            backgroundColor: "rgba(65, 105, 225, 0.3)",
-          },
-        },
-      },
-    },
-    scales: {
-      x: {
-        title: { display: true, text: "Impacto Financiero (%)" },
-        min: 0,
-        max: 100,
-      },
-      y: {
-        title: { display: true, text: "Impacto Socioambiental (%)" },
-        min: 0,
-        max: 100,
-      },
-    },
-  },
-});
-
-function updateTable() {
-  const table = document.getElementById("resultsTable");
-  table.innerHTML = results
-    .map(
-      (r) => `
-      <tr>
-        <td>${r.name}</td>
-        <td>${r.category}</td>
-        <td>${r.esrs}</td>
-        <td>${r.ods}</td>
-        <td>${r.kpi}</td>
-        <td>${r.taxonomy}</td>
-        <td>${r.puntuacion}%</td>
-        <td>${r.financiero}%</td>
-        <td>${r.stakeholders}%</td>
-      </tr>
-    `
-    )
-    .join("");
-}
-
-function downloadChart() {
-  const link = document.createElement("a");
-  link.href = chart.toBase64Image();
-  link.download = "matriz_esg.png";
-  link.click();
-}
-
-function downloadData() {
-  const csv =
-    "data:text/csv;charset=utf-8,Tema,Financiero,Socioambiental,Stakeholders\n" +
-    results.map((r) => `${r.name},${r.financiero},${r.puntuacion},${r.stakeholders}`).join("\n");
-  const link = document.createElement("a");
-  link.href = encodeURI(csv);
-  link.download = "datos_esg.csv";
-  link.click();
-}
-// Actualizar el gráfico
-function updateChart() {
-  const ctx = document.getElementById("matrixChart").getContext("2d");
-
-  if (chart) chart.destroy();
-
-  chart = new Chart(ctx, {
-    type: "bubble",
-    data: {
-      datasets: results.map((r) => ({
-        label: r.name,
-        data: [{ x: r.financiero, y: r.puntuacion, r: r.stakeholders }],
-        backgroundColor: getCategoryColor(r.category),
-        borderColor: "#333",
-        borderWidth: 1,
-      })),
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        title: {
-          display: true,
-          text: "Matriz de Doble Materialidad ESG",
-          font: { size: 18 },
-        },
-      },
-      scales: {
-        x: { title: { display: true, text: "Impacto Financiero (%)" }, min: 0, max: 100 },
-        y: { title: { display: true, text: "Impacto Socioambiental (%)" }, min: 0, max: 100 },
-      },
-      animation: false,
-      plugins: [
-        {
-          id: "quadrantsBackground",
-          beforeDraw: drawQuadrants, // Redibuja los cuadrantes
-        },
-      ],
-    },
-  });
-}
-
-// Actualizar valores
-function updateValues() {
-  const puntuacion = parseInt(document.getElementById("score").value) || 0;
-  const stakeholders = parseInt(document.getElementById("stakeholder").value) || 0;
-  const financiero = parseInt(document.getElementById("risk").value) || 0;
-
-  document.getElementById("scoreDisplay").innerText = `${puntuacion}%`;
-  document.getElementById("stakeholderDisplay").innerText = `${stakeholders}%`;
-  document.getElementById("riskDisplay").innerText = `${financiero}%`;
-
-  results[0] = {
-    ...results[0],
-    financiero: financiero,
-    puntuacion: puntuacion,
-    stakeholders: stakeholders,
-  };
-
-  updateChart();
-}
-
-document.addEventListener("DOMContentLoaded", updateChart);
