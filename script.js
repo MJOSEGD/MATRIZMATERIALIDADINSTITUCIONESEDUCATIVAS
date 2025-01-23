@@ -7,7 +7,7 @@ const esgTopics = [
     ods: "15",
     kpi: "Impacto en Ecosistemas",
     taxonomy: "esrs_Biodiversity",
-    priority: { min: 40, max: 80 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Gestión del Agua",
@@ -16,7 +16,7 @@ const esgTopics = [
     ods: "6",
     kpi: "Consumo de Agua",
     taxonomy: "esrs_WaterManagement",
-    priority: { min: 30, max: 70 }
+    priority: { min: 45, max: 100 }
   },
   {
     name: "Vertidos",
@@ -25,7 +25,7 @@ const esgTopics = [
     ods: "6",
     kpi: "Gestión de Vertidos",
     taxonomy: "esrs_WaterDischarge",
-    priority: { min: 30, max: 70 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Energía",
@@ -34,7 +34,7 @@ const esgTopics = [
     ods: "7",
     kpi: "Consumo Energético",
     taxonomy: "esrs_Energy",
-    priority: { min: 40, max: 80 }
+    priority: { min: 45, max: 100 }
   },
   {
     name: "Emisiones",
@@ -43,7 +43,7 @@ const esgTopics = [
     ods: "13",
     kpi: "Emisiones GEI",
     taxonomy: "esrs_Emissions",
-    priority: { min: 50, max: 90 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Urbanización Sostenible",
@@ -52,7 +52,7 @@ const esgTopics = [
     ods: "11",
     kpi: "Desarrollo Urbano",
     taxonomy: "esrs_SustainableUrbanization",
-    priority: { min: 30, max: 70 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Construcción Ecológica y Gestión del Espacio",
@@ -61,7 +61,7 @@ const esgTopics = [
     ods: "11",
     kpi: "Edificación Sostenible",
     taxonomy: "esrs_GreenConstruction",
-    priority: { min: 40, max: 80 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Economía Circular",
@@ -70,7 +70,7 @@ const esgTopics = [
     ods: "12",
     kpi: "Reciclaje y Reutilización",
     taxonomy: "esrs_CircularEconomy",
-    priority: { min: 40, max: 80 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Consumo responsable",
@@ -79,7 +79,7 @@ const esgTopics = [
     ods: "12",
     kpi: "Consumo Sostenible",
     taxonomy: "esrs_ResponsibleConsumption",
-    priority: { min: 30, max: 70 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Gestión de Residuos",
@@ -88,7 +88,7 @@ const esgTopics = [
     ods: "12",
     kpi: "Gestión de Residuos",
     taxonomy: "esrs_WasteManagement",
-    priority: { min: 40, max: 80 }
+    priority: { min: 60, max: 100 }
   },
   {
     name: "Movilidad y Transporte Sostenible",
@@ -97,7 +97,7 @@ const esgTopics = [
     ods: "11",
     kpi: "Movilidad Sostenible",
     taxonomy: "esrs_SustainableTransport",
-    priority: { min: 40, max: 80 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Compra Sostenible",
@@ -106,7 +106,7 @@ const esgTopics = [
     ods: "12",
     kpi: "Compras Responsables",
     taxonomy: "esrs_SustainableProcurement",
-    priority: { min: 40, max: 80 }
+    priority: { min: 0, max: 100 }
   },
   // Social Topics
   {
@@ -116,7 +116,7 @@ const esgTopics = [
     ods: "10",
     kpi: "Evaluación DDHH",
     taxonomy: "esrs_HumanRights",
-    priority: { min: 60, max: 100 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Innovación y Sostenibilidad en Desarrollo de Negocios",
@@ -125,7 +125,7 @@ const esgTopics = [
     ods: "9",
     kpi: "Innovación Sostenible",
     taxonomy: "esrs_BusinessInnovation",
-    priority: { min: 50, max: 90 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Índice de Salud y Bienestar Corporativo",
@@ -134,7 +134,7 @@ const esgTopics = [
     ods: "3",
     kpi: "Bienestar Laboral",
     taxonomy: "esrs_CorporateWellbeing",
-    priority: { min: 50, max: 90 }
+    priority: { min: 40, max: 100 }
   },
   {
     name: "Interacción con la Comunidad Local",
@@ -143,7 +143,7 @@ const esgTopics = [
     ods: "11",
     kpi: "Impacto Comunitario",
     taxonomy: "esrs_CommunityEngagement",
-    priority: { min: 40, max: 80 }
+    priority: { min: 40, max: 100 }
   },
   {
     name: "Inclusión y Diversidad",
@@ -152,7 +152,7 @@ const esgTopics = [
     ods: "5",
     kpi: "Índice de Diversidad",
     taxonomy: "esrs_Diversity",
-    priority: { min: 60, max: 100 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Privacidad, Seguridad y protección de datos",
@@ -161,7 +161,7 @@ const esgTopics = [
     ods: "16",
     kpi: "Protección de Datos",
     taxonomy: "esrs_DataProtection",
-    priority: { min: 50, max: 90 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Desarrollo Profesional y Entorno Laboral en Empresas",
@@ -170,7 +170,7 @@ const esgTopics = [
     ods: "8",
     kpi: "Desarrollo Profesional",
     taxonomy: "esrs_ProfessionalDevelopment",
-    priority: { min: 50, max: 90 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Inclusión Socioeconómica y Resiliencia Empresarial",
@@ -179,7 +179,7 @@ const esgTopics = [
     ods: "10",
     kpi: "Inclusión Económica",
     taxonomy: "esrs_SocioeconomicInclusion",
-    priority: { min: 40, max: 80 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Sostenibilidad Alimentaria y Nutricional",
@@ -188,7 +188,7 @@ const esgTopics = [
     ods: "2",
     kpi: "Nutrición Sostenible",
     taxonomy: "esrs_FoodSustainability",
-    priority: { min: 30, max: 70 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Calidad y Sostenibilidad Académica",
@@ -197,7 +197,7 @@ const esgTopics = [
     ods: "4",
     kpi: "Calidad Educativa",
     taxonomy: "esrs_AcademicSustainability",
-    priority: { min: 50, max: 90 }
+    priority: { min: 65, max: 100 }
   },
   // Governance Topics
   {
@@ -207,7 +207,7 @@ const esgTopics = [
     ods: "16",
     kpi: "Estructura de Gobierno",
     taxonomy: "esrs_InstitutionalGovernance",
-    priority: { min: 60, max: 100 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Participación de Stakeholders",
@@ -216,7 +216,16 @@ const esgTopics = [
     ods: "17",
     kpi: "Participación Grupos Interés",
     taxonomy: "esrs_StakeholderEngagement",
-    priority: { min: 50, max: 90 }
+    priority: { min: 40, max: 100 }
+  },
+  {
+    name: "Derechos Humanos",
+    category: "Governance",
+    esrs: "G1",
+    ods: "16",
+    kpi: "Evaluación DDHH",
+    taxonomy: "esrs_HumanRights",
+    priority: { min: 40, max: 100 }
   },
   {
     name: "Transparencia e integridad Corporativa",
@@ -225,7 +234,7 @@ const esgTopics = [
     ods: "16",
     kpi: "Índice de Transparencia",
     taxonomy: "esrs_CorporateTransparency",
-    priority: { min: 70, max: 100 }
+    priority: { min: 40, max: 100 }
   },
   {
     name: "Implementación de Estándares ESG",
@@ -234,7 +243,7 @@ const esgTopics = [
     ods: "12",
     kpi: "Cumplimiento ESG",
     taxonomy: "esrs_ESGStandards",
-    priority: { min: 60, max: 90 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Matriz de Cumplimiento ESG",
@@ -243,7 +252,7 @@ const esgTopics = [
     ods: "12",
     kpi: "Matriz de Cumplimiento",
     taxonomy: "esrs_ESGCompliance",
-    priority: { min: 50, max: 90 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Gestión de Riesgos y Crisis",
@@ -252,7 +261,7 @@ const esgTopics = [
     ods: "8",
     kpi: "Gestión de Riesgos",
     taxonomy: "esrs_RiskManagement",
-    priority: { min: 60, max: 90 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Innovación Digital y CiberSeguridad",
@@ -261,7 +270,7 @@ const esgTopics = [
     ods: "9",
     kpi: "Seguridad Digital",
     taxonomy: "esrs_CyberSecurity",
-    priority: { min: 50, max: 90 }
+    priority: { min: 0, max: 100 }
   },
   {
     name: "Sostenibilidad Financiera",
@@ -270,7 +279,7 @@ const esgTopics = [
     ods: "8",
     kpi: "Finanzas Sostenibles",
     taxonomy: "esrs_FinancialSustainability",
-    priority: { min: 50, max: 90 }
+    priority: { min: 0, max: 100 }
   }
 ];
 
@@ -673,7 +682,7 @@ class MaterialityMatrix {
     const csvContent = [
       headers,
       ...Array.from(results.values()).map(r => 
-        `${r.name},${r.category},${r.esrs},${r.ods},${r.kpi},${r.score},${r.stakeholders},${r.materialidad}`
+        `"${r.name}","${r.category}","${r.esrs}","${r.ods}","${r.kpi}",${r.score},${r.stakeholders},${r.materialidad}`
       )
     ].join('\n');
 
