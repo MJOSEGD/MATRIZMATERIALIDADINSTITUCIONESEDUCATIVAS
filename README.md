@@ -1,4 +1,4 @@
-# Matriz de Evaluación ESG para Colegios
+# Matriz de Evaluación ESG para Instituciones Educativas
 
 Una herramienta interactiva para evaluar y visualizar el desempeño de instituciones educativas en criterios Ambientales, Sociales y de Gobernanza (ESG).
 
