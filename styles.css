@@ -1,72 +1,423 @@
+/* Base Styles */
+:root {
+    --primary: #0f766e;
+    --primary-light: #14b8a6;
+    --bg-color: #f8fafc;
+    --text-color: #1e293b;
+    --border-color: #e2e8f0;
+    --shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background-color: #f4f4f9;
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.5;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 3rem;
 }
 
 h1 {
-  text-align: center;
-  color: #0f766e;
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
 }
 
-.form-group {
-  margin-bottom: 15px;
+.subtitle {
+    color: #64748b;
 }
 
-label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
+/* Controls Section */
+.controls-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
 }
 
-input[type="range"],
-select {
-  width: 100%;
+.sliders-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
 }
 
-canvas {
-  margin: 20px 0;
-  border: 1px solid #ddd;
-  background-color: #fafafa;
+.slider-group {
+    margin-bottom: 0;
+}
+
+.input-with-range {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+input[type="range"] {
+    flex: 1;
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 3px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.number-input {
+    position: relative;
+    width: 80px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.percentage {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-color);
+    pointer-events: none;
+}
+
+/* Chart Section */
+.chart-section {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.chart-section canvas {
+    width: 100% !important;
+    height: 800px !important;
+    max-height: 800px;
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 0.5rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.environmental { background-color: #66cdaa; }
+.social { background-color: #ffa07a; }
+.governance { background-color: #87ceeb; }
+
+/* Results Section */
+.results-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.table-wrapper {
+    overflow-x: auto;
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    min-height: 100px;
 }
 
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
 }
 
 th {
-  background-color: #0f766e;
-  color: white;
+    background-color: var(--primary);
+    color: white;
 }
 
-button {
-  padding: 10px 15px;
-  background-color: #0f766e;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
+/* Info Section */
+.info-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
 }
 
-button:hover {
-  background-color: #0d5d56;
+.formula {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--bg-color);
+    border-radius: 4px;
+}
+
+/* Button */
+.btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.btn:hover {
+    background-color: var(--primary-light);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    th, td {
+        padding: 0.5rem;
+    }
+
+    .sliders-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+/* Add these styles */
+.no-data {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 2rem !important;
+    font-style: italic;
+}
+
+.empty-row {
+    background-color: var(--bg-color);
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-secondary {
+    background-color: var(--bg-color);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* Add this with the other section styles */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.section-header h2 {
+    margin: 0;
+}
+
+#chartjs-tooltip {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 3px;
+    color: white;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    white-space: nowrap;
+    z-index: 1000;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+#chartjs-tooltip br {
+    margin: 3px 0;
+}
+
+/* Add these styles */
+input[type="range"]:disabled {
+    cursor: not-allowed;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+    background: var(--text-secondary);
+    cursor: not-allowed;
+}
+
+input[type="number"]:disabled {
+    background-color: var(--bg-color);
+    cursor: not-allowed;
+}
+
+/* Update Info Section styles */
+.narrative {
+    margin-top: 1rem;
+}
+
+.narrative h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.narrative p {
+    margin-bottom: 1rem;
+}
+
+.narrative ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.narrative li {
+    margin-bottom: 0.5rem;
+}
+
+.narrative strong {
+    color: var(--text-color);
+}
+
+.narrative em {
+    font-style: italic;
+    background: var(--bg-color);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+}
+
+/* Add these styles for the select dropdown */
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    transition: all 0.2s ease;
+    color: var(--text-color);
+}
+
+select:hover:not([disabled]) {
+    border-color: var(--primary-light);
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+select option:hover,
+select option:focus,
+select option:active,
+select option:checked {
+    background-color: var(--primary);
+    color: white !important;
+}
+
+/* Update the optgroup styles */
+select optgroup {
+    font-weight: 600;
+    padding: 0.5rem;
+    background-color: var(--bg-color);
+}
+
+select optgroup[label="Ambiental"] {
+    color: #3cb371;
+}
+
+select optgroup[label="Social"] {
+    color: #ff7f50;
+}
+
+select optgroup[label="Gobernanza"] {
+    color: #4682b4;
+}
+
+/* Keep other select styles */
+select option {
+    padding: 0.75rem;
+    color: var(--text-color);
+    background-color: white;
+}
+
+/* Update the form-group styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
 }

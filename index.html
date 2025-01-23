@@ -1,62 +1,159 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matriz de Materialidad ESG</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Matriz de Materialidad ESG</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Matriz de Materialidad ESG para evaluación de temas ambientales, sociales y de gobernanza">
+    <title>Matriz de Materialidad ESG</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Add Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Add modern font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Matriz de Materialidad ESG</h1>
+        <p class="subtitle">Evaluación de temas ESG</p>
+      </header>
 
-    <!-- Selección de Tema -->
-    <div class="form-group">
-      <label for="topicSelect">Selecciona un Tema ESG</label>
-      <select id="topicSelect" onchange="selectTopic()">
-        <option value="">Seleccione un tema</option>
-      </select>
+      <main>
+        <!-- Input Controls -->
+        <section class="controls-section">
+          <div class="form-group">
+            <label for="topicSelect">Tema ESG</label>
+            <select id="topicSelect">
+            </select>
+          </div>
+
+          <div class="sliders-container">
+            <div class="form-group slider-group">
+              <label for="score">
+                Puntuación Screening
+              </label>
+              <div class="input-with-range">
+                <input type="range" 
+                       id="score" 
+                       min="0" 
+                       max="100" 
+                       value="0">
+                <div class="number-input">
+                  <input type="number"
+                         id="scoreNumber"
+                         min="0"
+                         max="100"
+                         value="0">
+                  <span class="percentage">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group slider-group">
+              <label for="stakeholder">
+                Stakeholders
+              </label>
+              <div class="input-with-range">
+                <input type="range" 
+                       id="stakeholder" 
+                       min="0" 
+                       max="100" 
+                       value="0">
+                <div class="number-input">
+                  <input type="number"
+                         id="stakeholderNumber"
+                         min="0"
+                         max="100"
+                         value="0">
+                  <span class="percentage">%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chart -->
+        <section class="chart-section">
+          <div class="section-header">
+            <h2>Matriz de Materialidad</h2>
+            <button id="exportChartBtn" class="btn">
+              Exportar Gráfico
+            </button>
+          </div>
+          <canvas id="matrixChart"></canvas>
+          <div class="legend">
+            <div class="legend-item">
+              <span class="legend-color environmental"></span>
+              <span>Ambiental</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color social"></span>
+              <span>Social</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color governance"></span>
+              <span>Gobernanza</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Results -->
+        <section class="results-section">
+          <div class="table-header">
+            <h2>Resultados</h2>
+            <button id="downloadBtn" class="btn">
+              Exportar CSV
+            </button>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tema</th>
+                  <th>Categoría</th>
+                  <th>ESRS</th>
+                  <th>ODS</th>
+                  <th>KPI</th>
+                  <th>Screening</th>
+                  <th>Stakeholders</th>
+                  <th>Materialidad</th>
+                </tr>
+              </thead>
+              <tbody id="resultsTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Info -->
+        <section class="info-section">
+          <h2>Acerca de la Matriz</h2>
+          <div class="narrative">
+            <h3>Explicación de la Matriz de Materialidad</h3>
+            <p>
+              La matriz de materialidad ESG (Ambiental, Social y Gobernanza) permite
+              visualizar y priorizar los temas más importantes para una
+              organización. Cada tema seleccionado se evalúa en función de:
+            </p>
+            <ul>
+              <li>
+                <strong>Puntuación (%):</strong> Representa la evaluación interna
+                del tema (impacto o relevancia).
+              </li>
+              <li>
+                <strong>Stakeholders (%):</strong> Refleja la importancia del tema
+                desde la perspectiva de los grupos de interés.
+              </li>
+            </ul>
+            <p>
+              La <strong>Materialidad (%)</strong> se calcula usando la siguiente
+              fórmula: <em>(Puntuación × 65%) + (Stakeholders × 35%)</em>.
+            </p>
+          </div>
+        </section>
+      </main>
     </div>
-
-    <!-- Sliders -->
-    <div class="form-group">
-      <label for="score">Puntuación Screening (%)</label>
-      <input type="range" id="score" min="0" max="100" value="0" oninput="updateValues()">
-      <span id="scoreDisplay">0%</span>
-    </div>
-    <div class="form-group">
-      <label for="stakeholder">Stakeholders (%)</label>
-      <input type="range" id="stakeholder" min="0" max="100" value="0" oninput="updateValues()">
-      <span id="stakeholderDisplay">0%</span>
-    </div>
-
-    <!-- Gráfico -->
-    <canvas id="matrixChart"></canvas>
-
-    <!-- Tabla -->
-    <table>
-      <thead>
-        <tr>
-          <th>Tema</th>
-          <th>Categoría</th>
-          <th>ESRS</th>
-          <th>ODS</th>
-          <th>KPI</th>
-          <th>Taxonomía</th>
-          <th>Ponderación (%)</th>
-          <th>Puntuación (%)</th>
-          <th>Impacto Financiero (%)</th>
-          <th>Stakeholders (%)</th>
-        </tr>
-      </thead>
-      <tbody id="resultsTable"></tbody>
-    </table>
-
-    <!-- Botones -->
-    <button onclick="downloadChart()">Descargar Gráfico</button>
-    <button onclick="downloadData()">Exportar Datos</button>
-  </div>
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
+
