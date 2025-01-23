@@ -90,6 +90,24 @@ const esgTopics = [
     taxonomy: "esrs_WasteManagement",
     priority: { min: 40, max: 80 }
   },
+  {
+    name: "Movilidad y Transporte Sostenible",
+    category: "Environmental",
+    esrs: "E5",
+    ods: "11",
+    kpi: "Movilidad Sostenible",
+    taxonomy: "esrs_SustainableTransport",
+    priority: { min: 40, max: 80 }
+  },
+  {
+    name: "Compra Sostenible",
+    category: "Environmental",
+    esrs: "E5",
+    ods: "12",
+    kpi: "Compras Responsables",
+    taxonomy: "esrs_SustainableProcurement",
+    priority: { min: 40, max: 80 }
+  },
   // Social Topics
   {
     name: "Derechos Humanos",
@@ -119,7 +137,7 @@ const esgTopics = [
     priority: { min: 50, max: 90 }
   },
   {
-    name: "Compromiso Corporativo con la Comunidad Local",
+    name: "Interacción con la Comunidad Local",
     category: "Social",
     esrs: "S2",
     ods: "11",
@@ -171,6 +189,15 @@ const esgTopics = [
     kpi: "Nutrición Sostenible",
     taxonomy: "esrs_FoodSustainability",
     priority: { min: 30, max: 70 }
+  },
+  {
+    name: "Calidad y Sostenibilidad Académica",
+    category: "Social",
+    esrs: "S4",
+    ods: "4",
+    kpi: "Calidad Educativa",
+    taxonomy: "esrs_AcademicSustainability",
+    priority: { min: 50, max: 90 }
   },
   // Governance Topics
   {
