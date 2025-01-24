@@ -507,7 +507,7 @@ class MaterialityMatrix {
     
     // Calculate adjusted score based on priority range
     const adjustedScore = this.calculateAdjustedValue(score, selectedTopic.priority);
-    const adjustedStakeholders = this.calculateAdjustedValue(stakeholders, selectedTopic.priority);
+
     
     const materialidad = (adjustedScore * 0.65 + adjustedStakeholders * 0.35).toFixed(2);
     
