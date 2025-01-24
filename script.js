@@ -7,7 +7,7 @@ const esgTopics = [
     ods: "15",
     kpi: "Impacto en Ecosistemas",
     taxonomy: "esrs_Biodiversity",
-    priority: { min: 0, max: 100 }
+    priority: { min: 15, max: 100 }
   },
   {
     name: "Gestión del Agua",
@@ -16,7 +16,7 @@ const esgTopics = [
     ods: "6",
     kpi: "Consumo de Agua",
     taxonomy: "esrs_WaterManagement",
-    priority: { min: 45, max: 100 }
+    priority: { min: 40, max: 100 }
   },
   {
     name: "Vertidos",
@@ -25,7 +25,7 @@ const esgTopics = [
     ods: "6",
     kpi: "Gestión de Vertidos",
     taxonomy: "esrs_WaterDischarge",
-    priority: { min: 0, max: 100 }
+    priority: { min: 10, max: 100 }
   },
   {
     name: "Energía",
@@ -34,7 +34,7 @@ const esgTopics = [
     ods: "7",
     kpi: "Consumo Energético",
     taxonomy: "esrs_Energy",
-    priority: { min: 45, max: 100 }
+    priority: { min: 40, max: 100 }
   },
   {
     name: "Emisiones",
@@ -61,7 +61,7 @@ const esgTopics = [
     ods: "11",
     kpi: "Edificación Sostenible",
     taxonomy: "esrs_GreenConstruction",
-    priority: { min: 0, max: 100 }
+    priority: { min: 10, max: 100 }
   },
   {
     name: "Economía Circular",
@@ -70,7 +70,7 @@ const esgTopics = [
     ods: "12",
     kpi: "Reciclaje y Reutilización",
     taxonomy: "esrs_CircularEconomy",
-    priority: { min: 0, max: 100 }
+    priority: { min: 30, max: 100 }
   },
   {
     name: "Consumo responsable",
@@ -88,7 +88,7 @@ const esgTopics = [
     ods: "12",
     kpi: "Gestión de Residuos",
     taxonomy: "esrs_WasteManagement",
-    priority: { min: 60, max: 100 }
+    priority: { min: 50, max: 100 }
   },
   {
     name: "Movilidad y Transporte Sostenible",
@@ -106,7 +106,7 @@ const esgTopics = [
     ods: "12",
     kpi: "Compras Responsables",
     taxonomy: "esrs_SustainableProcurement",
-    priority: { min: 0, max: 100 }
+    priority: { min: 10, max: 100 }
   },
   // Social Topics
   {
@@ -116,7 +116,7 @@ const esgTopics = [
     ods: "10",
     kpi: "Evaluación DDHH",
     taxonomy: "esrs_HumanRights",
-    priority: { min: 0, max: 100 }
+    priority: { min: 10, max: 100 }
   },
   {
     name: "Innovación y Sostenibilidad en Desarrollo de Negocios",
@@ -134,7 +134,7 @@ const esgTopics = [
     ods: "3",
     kpi: "Bienestar Laboral",
     taxonomy: "esrs_CorporateWellbeing",
-    priority: { min: 40, max: 100 }
+    priority: { min: 30, max: 100 }
   },
   {
     name: "Interacción con la Comunidad Local",
@@ -143,7 +143,7 @@ const esgTopics = [
     ods: "11",
     kpi: "Impacto Comunitario",
     taxonomy: "esrs_CommunityEngagement",
-    priority: { min: 40, max: 100 }
+    priority: { min: 35, max: 100 }
   },
   {
     name: "Inclusión y Diversidad",
@@ -152,7 +152,7 @@ const esgTopics = [
     ods: "5",
     kpi: "Índice de Diversidad",
     taxonomy: "esrs_Diversity",
-    priority: { min: 0, max: 100 }
+    priority: { min: 20, max: 100 }
   },
   {
     name: "Privacidad, Seguridad y protección de datos",
@@ -170,7 +170,7 @@ const esgTopics = [
     ods: "8",
     kpi: "Desarrollo Profesional",
     taxonomy: "esrs_ProfessionalDevelopment",
-    priority: { min: 0, max: 100 }
+    priority: { min: 20, max: 100 }
   },
   {
     name: "Inclusión Socioeconómica y Resiliencia Empresarial",
@@ -188,7 +188,7 @@ const esgTopics = [
     ods: "2",
     kpi: "Nutrición Sostenible",
     taxonomy: "esrs_FoodSustainability",
-    priority: { min: 0, max: 100 }
+    priority: { min: 20, max: 100 }
   },
   {
     name: "Calidad y Sostenibilidad Académica",
@@ -197,7 +197,7 @@ const esgTopics = [
     ods: "4",
     kpi: "Calidad Educativa",
     taxonomy: "esrs_AcademicSustainability",
-    priority: { min: 65, max: 100 }
+    priority: { min: 60, max: 100 }
   },
   // Governance Topics
   {
@@ -216,7 +216,7 @@ const esgTopics = [
     ods: "17",
     kpi: "Participación Grupos Interés",
     taxonomy: "esrs_StakeholderEngagement",
-    priority: { min: 40, max: 100 }
+    priority: { min: 30, max: 100 }
   },
   {
     name: "Derechos Humanos",
@@ -225,7 +225,7 @@ const esgTopics = [
     ods: "16",
     kpi: "Evaluación DDHH",
     taxonomy: "esrs_HumanRights",
-    priority: { min: 40, max: 100 }
+    priority: { min: 30, max: 100 }
   },
   {
     name: "Transparencia e integridad Corporativa",
@@ -234,7 +234,7 @@ const esgTopics = [
     ods: "16",
     kpi: "Índice de Transparencia",
     taxonomy: "esrs_CorporateTransparency",
-    priority: { min: 40, max: 100 }
+    priority: { min: 20, max: 100 }
   },
   {
     name: "Implementación de Estándares ESG",
@@ -243,7 +243,7 @@ const esgTopics = [
     ods: "12",
     kpi: "Cumplimiento ESG",
     taxonomy: "esrs_ESGStandards",
-    priority: { min: 0, max: 100 }
+    priority: { min: 15, max: 100 }
   },
   {
     name: "Matriz de Cumplimiento ESG",
@@ -252,7 +252,7 @@ const esgTopics = [
     ods: "12",
     kpi: "Matriz de Cumplimiento",
     taxonomy: "esrs_ESGCompliance",
-    priority: { min: 0, max: 100 }
+    priority: { min: 20, max: 100 }
   },
   {
     name: "Gestión de Riesgos y Crisis",
@@ -270,7 +270,7 @@ const esgTopics = [
     ods: "9",
     kpi: "Seguridad Digital",
     taxonomy: "esrs_CyberSecurity",
-    priority: { min: 0, max: 100 }
+    priority: { min: 10, max: 100 }
   },
   {
     name: "Sostenibilidad Financiera",
@@ -1082,10 +1082,10 @@ class MaterialityMatrix {
             ctx.fillStyle = '#64748b';
             
             // Draw quadrant labels at borders
-            ctx.fillText('Media Baja', left + (midX - left) / 2, bottom + 35);
-            ctx.fillText('Baja', midX + (right - midX) / 2, bottom + 35);
-            ctx.fillText('Alta', left + (midX - left) / 2, top - 15);
-            ctx.fillText('Media Alta', midX + (right - midX) / 2, top - 15);
+            ctx.fillText('Baja', left + (midX - left) / 2, bottom + 35);
+            ctx.fillText('Media Baja', midX + (right - midX) / 2, bottom + 35);
+            ctx.fillText('Media Alta', left + (midX - left) / 2, top - 15);
+            ctx.fillText('Alta', midX + (right - midX) / 2, top - 15);
             
             // Draw quadrant labels in center of each quadrant
             ctx.font = '12px system-ui';
