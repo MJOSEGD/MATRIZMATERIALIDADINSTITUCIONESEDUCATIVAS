@@ -1081,11 +1081,6 @@ class MaterialityMatrix {
             ctx.textAlign = 'center';
             ctx.fillStyle = '#64748b';
             
-            // Draw quadrant labels at borders
-            ctx.fillText('Baja', left + (midX - left) / 2, bottom + 35);
-            ctx.fillText('Media Baja', midX + (right - midX) / 2, bottom + 35);
-            ctx.fillText('Media Alta', left + (midX - left) / 2, top - 15);
-            ctx.fillText('Alta', midX + (right - midX) / 2, top - 15);
             
             // Draw quadrant labels in center of each quadrant
             ctx.font = '12px system-ui';
