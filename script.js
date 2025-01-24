@@ -502,26 +502,31 @@ class MaterialityMatrix {
     if (elements.stakeholder) elements.stakeholder.value = stakeholders;
   }
 
-  updateResults({ score, stakeholders }) {
-    const { selectedTopic, results } = this.state.getState();
-    
-    // Calculate adjusted score based on priority range
-    const adjustedScore = this.calculateAdjustedValue(score, selectedTopic.priority);
-    const adjustedStakeholders = this.calculateAdjustedValue(stakeholders, selectedTopic.priority);
-   
-    const materialidad = (adjustedScore * 0.65 + adjustedStakeholders * 0.35).toFixed(2);
-    
-    results.set(selectedTopic.name, {
-      ...selectedTopic,
-      score: adjustedScore,
-      stakeholders: adjustedStakeholders,
-      materialidad: parseFloat(materialidad),
-      rawScore: score, // Keep original values for reference
-      rawStakeholders: stakeholders
-    });
+updateResults({ score, stakeholders }) {
+  const { selectedTopic, results } = this.state.getState();
+  
+  // Calcular puntuación ajustada del screening basada en priority
+  const adjustedScore = this.calculateAdjustedValue(score, selectedTopic.priority);
 
-    this.state.updateState({ results });
-  }
+  // Los stakeholders no necesitan ajuste
+  const adjustedStakeholders = stakeholders;
+
+  // Calcular materialidad
+  const materialidad = (adjustedScore * 0.65 + adjustedStakeholders * 0.35).toFixed(2);
+
+  // Actualizar resultados
+  results.set(selectedTopic.name, {
+    ...selectedTopic,
+    score: adjustedScore, // Puntaje ajustado del screening
+    stakeholders: adjustedStakeholders, // Puntaje sin ajuste
+    materialidad: parseFloat(materialidad),
+    rawScore: score, // Mantener el valor original del slider
+    rawStakeholders: stakeholders // Mantener el valor original del slider
+  });
+
+  // Actualizar el estado con los nuevos resultados
+  this.state.updateState({ results });
+}
 
   calculateAdjustedValue(value, priority) {
     const { min, max } = priority;
